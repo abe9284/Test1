@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-image: url("images/IMG_20200604_153206.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+
+        .d0 {
+            opacity: 0.9;
+            background-color: darkolivegreen;
+            border: 3px dashed rgba(45, 64, 18, 0.784);
+            border-radius: 10px;
+            margin: 30px auto;
+
+            width: 800px;
+            height: 500px;
+
+            text-align: center;
+
+
+        }
+
+        .d1 {
+
+            width: 250px;
+            height: 100px;
+            border-bottom: 3px dotted rgb(74, 9, 9);
+            padding-top: 15px;
+            margin: 10px auto;
+            text-align: center;
+        }
+
+        .d2 {
+            width: 250px;
+            height: 100px;
+            border-bottom: 3px dotted rgb(74, 9, 9);
+            margin: 10px auto;
+            padding-top: 15px;
+        }
+
+        .d3 {
+            width: 250px;
+            height: 100px;
+            border-bottom: 3px dotted rgb(74, 9, 9);
+            margin: 10px auto;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        #idbut {
+            margin-top: 20px;
+
+        }
+
+
+        label {
+            color: whitesmoke;
+            font-weight: bold;
+            font-style: oblique;
+        }
+
+
+
+        span {
+            color: lightgray;
+
+        }
+
+        #idsp3 {
+            color: lightgray;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="d0">
+        <div class="d1">
+            <label class="l1">Name:</label><br />
+            <input type="text" id="name" onchange="checkZH();" /><br />
+            <span id="idsp1"></span><br />
+        </div>
+
+        <div class="d2">
+            <label class="l2">Password:</label><br />
+            <input type="password" id="idPwd" size="20" onchange="checkPwd();" /><br /><!-- 瀏覽器執行到此標籤會建立一個物件-->
+            <span id="idsp2"></span><br />
+
+        </div>
+        <div class="d3">
+            <label class="l3">Date:</label><br />
+            <input type="text" id="idDate" size="20" onchange="validDate();" /><br />
+            <span id="idsp3" color="gray">日期格式為：YYYY/MM/DD</span><br />
+            <!-- <input type="submit" id="idbut" value="登入" /> -->
+        </div>
+    </div>
+    <script>
+        // function checkPwd1() {
+        //     let pwd = document.getElementById("idPwd");//取得idPwd元素此時是 obj
+        //     let pwdVal = pwd.value;////取得idPwd元素值變為字串
+        //     let pwdLen = pwdVal.length;
+        //     flag1 = false; flag2 = false; flag3 = false; flag4 = false;//判斷元素值是否為空白，密碼長度是否大於6
+        //     let sp = document.getElementById("idsp2");
+        //     if (pwdVal == "") {
+        //         sp.innerHTML = "密碼不得為空白"
+        //     } else if (pwdLen < 6) {
+        //         sp.innerHTML = "密碼必須至少六個字元"
+        //         //如果長度是否大於6，判斷是否包含字母、數字、特殊符號
+        //     } else if (pwdLen >= 6) {
+        //         for (let i = 0; i < pwdLen; i++) {
+        //             let pwdChar = pwdVal.charAt(i);
+        //             if (pwdChar >= "A" && pwdChar <= "Z") {
+        //                 flag1 = true;
+        //             } else if (pwdChar >= "a" && pwdChar <= "z") {
+        //                 flag2 = true;
+        //             } else if (pwdChar >= "0" && pwdChar <= "9") {
+        //                 flag3 = true;
+        //             } else if (pwdChar == "!" || pwdChar == "@" || pwdChar == "#" || pwdChar == "$" || pwdChar == "%" || pwdChar == "^" || pwdChar == "&" || pwdChar == "*") {
+        //                 flag4 = true;
+        //             } if (flag1 && flag2 && flag3 && flag4) {
+        //                 break;
+        //             }
+
+        //         } if (flag1 && flag2 && flag3 && flag4) { sp.innerHTML = "  "; } else { sp.innerHTML = "密碼必須包含大小寫英文、數字與特殊符號!@#$%^&*"; }
+        //     }
+        // }
+
+        function checkPwd() {
+            let pwd = document.getElementById("idPwd");//取得idPwd元素此時是 obj
+            let pwdVal = pwd.value;////取得idPwd元素值變為字串
+            let pwdLen = pwdVal.length;
+            flag1 = false; flag2 = false; flag3 = false; flag4 = false;//判斷元素值是否為空白，密碼長度是否大於6
+            let sp = document.getElementById("idsp2");
+            if (pwdLen < 6) {
+                sp.innerHTML = "密碼必須至少六個字元"
+            } else {
+                //至少有一個小寫英文、至少有一個大寫英文、至少有一個數字、至少有一個指定的特殊字元、其餘只要符合前述格式可輸入任意字元，至少比對6次
+                re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{6,}$/g;
+                if (re.test(pwdVal)) {
+                    sp.innerHTML = "密碼符合格式！";
+                } else { sp.innerHTML = "<font color=bisque>密碼必須包含大小寫英文、數字與至少一個特殊符號!@#$%^&*</font color>"; }//輸錯時修改顏色
+
+            }
+        }
+
+        function checkZH() {
+            let sp1 = document.getElementById("idsp1");
+            let name = document.getElementById("name");
+            let nameVal = name.value;
+            let re = /^[\u4E00-\u9FFF]+$/;//必須是中文，至少比對一次
+            if (nameVal = " " || name.length < 2) {
+                sp1.innerHTML = "<font color=bisque>名稱至少要有兩個字</font color>"
+                return;
+            }
+            if (re.test(nameVal)) {
+                sp1.innerHTML = "名稱符合格式";
+
+            } else { sp1.innerHTML = "<font color=bisque>名稱必須為中文</font color>" }
+        }
+
+        function validDate() {
+
+            let sp3 = document.getElementById("idsp3");
+            let date = document.getElementById("idDate");//取得日期物件
+            let dateVal = date.value;//取得日期的值(字串)
+            let dateArr = dateVal.split("/");//用split將日期切開，回傳陣列(年,月,日)
+            let d = new Date(dateVal);//將日期字串丟進日期生成工具，若錯誤工具會自動修改來補正
+            //比對日期生成工具轉換後的年月日，與輸入的年月日(分別為陣列0,1,2)，月份記得減一。若有被工具修正過，就是假的日期
+            if (d.getFullYear() == dateArr[0] && d.getMonth() == (dateArr[1] - 1) && d.getDate() == dateArr[2]) {
+                sp3.innerHTML = "日期格式正確"
+            } else { sp3.innerHTML = "<font color=bisque>日期不存在或日期格式不正確！</font color>" }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
